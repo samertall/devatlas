@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0b12" />
+  <meta name="description" content="Find your path through every developer language. Explore hundreds of languages, frameworks and tools, compare technologies, and build a personal learning roadmap." />
+  <meta property="og:title" content="DevAtlas — Your map of the coding universe" />
+  <meta property="og:description" content="Hundreds of developer languages and tools. One place to discover what to learn, compare your options, and start building." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://devatlas-samer-2026.usefulotter1.chatgpt.site" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>DevAtlas — Your map of the coding universe</title>
+</head>
+<body>
+  <a class="skip-link" href="#explore">Skip to catalog</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="DevAtlas home"><span class="brand-symbol" aria-hidden="true">✳</span><span>dev<span class="brand-accent">atlas</span><span class="brand-dot">.</span></span></a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="#explore">Explore</a><a href="#pathfinder">Pathfinder</a><a href="#challenge">Challenges</a><a href="#about">About</a>
+      </nav>
+      <div class="header-actions"><button class="nav-shortlist" id="openSaved" type="button"><span aria-hidden="true">◇</span> Saved <span id="savedCount">0</span></button><a class="button button-ghost header-github" href="https://github.com/samertall/devatlas" target="_blank" rel="noopener noreferrer" id="githubLink">GitHub <span aria-hidden="true">↗</span></a></div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="status-light"></span> THE OPEN DEVELOPER UNIVERSE <span class="eyebrow-line"></span> 2026 EDITION</div>
+        <h1 id="hero-title">Every language.<br /><span class="gradient-text">One direction.</span></h1>
+        <p class="hero-lede">Hundreds of languages, frameworks, and tools. Find what fits your goal, build a roadmap, and take your next step with confidence.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#explore">Explore the universe <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#pathfinder">Find my path <span aria-hidden="true">→</span></a></div>
+        <div class="hero-trust"><div class="mini-avatars" aria-hidden="true"><span>JS</span><span>Py</span><span>Rs</span><span>Go</span></div><span>Built for the curious, from first commit to next big move.</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-outer"></div><div class="orbit orbit-mid"></div><div class="orbit orbit-inner"></div>
+        <div class="planet-halo"></div><div class="planet"><div class="planet-grid"></div><span class="planet-icon">✳</span><span class="planet-word">EXPLORE<br />EVERYTHING</span></div>
+        <div class="floating-tag tag-js"><b>JS</b><span>JavaScript</span></div>
+        <div class="floating-tag tag-py"><b>Py</b><span>Python</span></div>
+        <div class="floating-tag tag-rs"><b>Rs</b><span>Rust</span></div>
+        <div class="floating-tag tag-re"><b>⚛</b><span>React</span></div>
+        <div class="floating-code code-one">&lt;build what="matters" /&gt;</div><div class="floating-code code-two">const future = you;</div>
+      </div>
+    </section>
+
+    <section class="stats-band" aria-label="Catalog overview"><div class="shell stats-inner">
+      <div><strong id="statTotal">—</strong><span>languages &amp; tools</span></div><span class="stat-sep"></span>
+      <div><strong id="statCategories">17</strong><span>technology categories</span></div><span class="stat-sep"></span>
+      <div><strong>8</strong><span>goal-based learning paths</span></div><span class="stat-sep"></span>
+      <div><strong>∞</strong><span>things you can build</span></div>
+    </div></section>
+
+    <section class="section shell path-section" id="pathfinder" aria-labelledby="path-title">
+      <div class="section-top"><div><div class="section-kicker"><span>01</span> / DISCOVER YOUR DIRECTION</div><h2 id="path-title">Start with what you <em>want to build.</em></h2><p>Choose an outcome. We'll map the skills and tools worth exploring first.</p></div><span class="section-mark" aria-hidden="true">↗</span></div>
+      <div class="path-grid" id="pathGrid"></div>
+      <div class="roadmap" id="roadmap" hidden aria-live="polite"></div>
+    </section>
+
+    <section class="section explore-section" id="explore" aria-labelledby="explore-title"><div class="shell">
+      <div class="section-top"><div><div class="section-kicker"><span>02</span> / THE COMPLETE CATALOG</div><h2 id="explore-title">Your universe, <em>unfiltered.</em></h2><p>Explore the full spectrum, from HTML and JavaScript to COBOL, Zig, Solidity, and beyond.</p></div><div class="total-pill"><span class="live-dot"></span><span id="catalogTotal">Loading catalog</span></div></div>
+      <div class="catalog-panel">
+        <div class="catalog-toolbar"><label class="search-field" for="searchInput"><span aria-hidden="true" class="search-icon">⌕</span><input id="searchInput" type="search" autocomplete="off" placeholder="Search languages, frameworks, tools..." /><kbd>/</kbd></label><div class="toolbar-controls"><label class="kind-select-wrap"><span class="sr-only">Technology type</span><select id="kindSelect"><option value="all">All technologies</option><option value="language">Languages & syntax</option><option value="tool">Frameworks & tools</option></select></label><label class="kind-select-wrap"><span class="sr-only">Sort results</span><select id="sortSelect"><option value="az">A to Z</option><option value="featured">Featured first</option><option value="za">Z to A</option></select></label></div></div>
+        <div class="filter-row" id="filterRow" role="group" aria-label="Filter by category"></div>
+        <div class="results-header"><p id="resultsText" aria-live="polite">Preparing catalog...</p><div class="results-tools"><button type="button" id="clearFilters" class="text-button">Reset filters</button><span class="results-divider"></span><button type="button" class="text-button compare-trigger" id="openCompare">Compare <span id="compareCount">0</span> / 3</button></div></div>
+        <div class="catalog-grid" id="catalogGrid"></div>
+        <div class="catalog-bottom"><button class="button button-secondary load-button" type="button" id="loadMore">Show more technologies <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </div></section>
+
+    <section class="section shell challenge-section" id="challenge" aria-labelledby="challenge-title">
+      <div class="challenge-card"><div class="challenge-content"><div class="section-kicker"><span>03</span> / BUILD IN PUBLIC</div><div class="challenge-badge"><span class="live-dot"></span> THE COMMUNITY CHALLENGE</div><h2 id="challenge-title">Learn it. Build it.<br /><em>Share it.</em></h2><p id="challengeText">A coding challenge for curious developers.</p><div class="challenge-actions"><button id="newChallenge" type="button" class="button button-primary">Give me another <span aria-hidden="true">↻</span></button><button id="shareChallenge" type="button" class="button button-outline">Copy challenge <span aria-hidden="true">↗</span></button></div></div><div class="challenge-illustration" aria-hidden="true"><div class="terminal-top"><i></i><i></i><i></i><span>your_next_big_idea.ts</span></div><div class="terminal-body"><p><span class="term-muted">01</span> <span class="term-purple">function</span> <span class="term-blue">build</span>(you) {'{'}</p><p><span class="term-muted">02</span> &nbsp;&nbsp;<span class="term-purple">const</span> idea = <span class="term-green">'something useful'</span>;</p><p><span class="term-muted">03</span> &nbsp;&nbsp;<span class="term-purple">return</span> <span class="term-blue">create</span>(idea);</p><p><span class="term-muted">04</span> {'}'}</p><p><span class="term-muted">05</span> <span class="term-cursor">▌</span></p></div><div class="terminal-sticker">SHIP IT ↗</div></div></div>
+    </section>
+
+    <section class="section shell about-section" id="about"><div class="about-grid"><div><div class="section-kicker"><span>04</span> / WHY DEVATLAS</div><h2>Less searching.<br /><em>More building.</em></h2></div><div><p>Technology moves fast. Deciding what to learn shouldn't mean opening fifty tabs. DevAtlas brings a broad, thoughtfully categorized directory into one searchable place, then connects exploration to action.</p><div class="about-features"><div><span>✳</span><strong>Broad by design</strong><small>Modern, niche, historical, and emerging technologies have a place here.</small></div><div><span>◇</span><strong>Useful, not overwhelming</strong><small>Filter, compare, save, and explore paths based on what you want to make.</small></div><div><span>↗</span><strong>Built to share</strong><small>Copy a challenge or roadmap and learn with other developers.</small></div></div><p class="about-note">This is a discovery catalog, not a compiler for every language. Learning suggestions are starting points, not rankings or job-market predictions. Saved items stay in this browser.</p></div></div></section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><div><a href="#top" class="brand footer-brand"><span class="brand-symbol">✳</span><span>dev<span class="brand-accent">atlas</span><span class="brand-dot">.</span></span></a><p>Make something that matters.</p></div><div class="footer-links"><a href="#explore">Explore</a><a href="#pathfinder">Find your path</a><a href="https://samertall.com" target="_blank" rel="noopener noreferrer">Portfolio ↗</a><a href="https://github.com/samertall/devatlas" target="_blank" rel="noopener noreferrer" id="footerGithub">GitHub ↗</a></div><div class="footer-credit">Designed &amp; developed by <a href="https://samertall.com" target="_blank" rel="noopener noreferrer">Samer Tallauze</a><span>© 2026 DevAtlas</span></div></div></footer>
+
+  <dialog id="detailDialog" class="app-dialog"><div class="dialog-inner"><div class="dialog-top"><span class="dialog-eyebrow">TECHNOLOGY PROFILE</span><button type="button" class="close-button" data-close="detailDialog" aria-label="Close dialog">×</button></div><div id="detailContent"></div></div></dialog>
+  <dialog id="compareDialog" class="app-dialog wide-dialog"><div class="dialog-inner"><div class="dialog-top"><span class="dialog-eyebrow">SIDE-BY-SIDE EXPLORER</span><button type="button" class="close-button" data-close="compareDialog" aria-label="Close dialog">×</button></div><h2>Compare technologies</h2><p class="dialog-intro">Select up to three catalog cards to see their roles and ecosystems together.</p><div id="compareContent"></div></div></dialog>
+  <dialog id="savedDialog" class="app-dialog"><div class="dialog-inner"><div class="dialog-top"><span class="dialog-eyebrow">YOUR PERSONAL SHORTLIST</span><button type="button" class="close-button" data-close="savedDialog" aria-label="Close dialog">×</button></div><h2>Saved technologies</h2><p class="dialog-intro">Your shortlist is stored locally in this browser.</p><div id="savedContent"></div></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

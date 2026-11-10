@@ -1,0 +1,10 @@
+{
+  "name": "devatlas",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A developer-language discovery platform and learning-path generator",
+  "scripts": {
+    "test": "node --test tests/catalog.test.js"
+  }
+}
