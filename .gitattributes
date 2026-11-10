@@ -1,0 +1,8 @@
+# These are authored, inspectable code samples, not prose documentation.
+# GitHub Linguist excludes examples directories by default; include actual
+# source code here in its language statistics without relabeling languages.
+examples/** -linguist-documentation -linguist-generated -linguist-vendored
+
+# Site deployment copies the same samples under dist/. Don't double-count.
+dist/examples/** linguist-generated
+dist/examples-index.js linguist-generated
