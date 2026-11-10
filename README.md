@@ -1,5 +1,7 @@
 # ✳ DevAtlas
 
+![DevAtlas — Every language. One direction.](dist/social-preview.png)
+
 **Every language. One direction.**
 
 DevAtlas is a free, accessible developer-discovery platform for finding languages, frameworks, runtimes, and tools that fit what you want to build.
