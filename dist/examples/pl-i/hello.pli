@@ -1,0 +1,3 @@
+hello: proc options(main);
+  put skip list('Hello, DevAtlas!');
+end hello;

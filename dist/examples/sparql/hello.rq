@@ -1,0 +1,4 @@
+PREFIX schema: <https://schema.org/>
+SELECT ?name WHERE {
+  ?item a schema:SoftwareSourceCode ; schema:name ?name .
+} LIMIT 10

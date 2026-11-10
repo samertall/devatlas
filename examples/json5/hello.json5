@@ -1,0 +1,5 @@
+{
+  // JSON with comments and trailing commas
+  project: 'DevAtlas',
+  languages: ['JavaScript', 'Python', 'Rust',],
+}

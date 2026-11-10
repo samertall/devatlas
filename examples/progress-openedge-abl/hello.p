@@ -1,0 +1,1 @@
+MESSAGE "Hello, DevAtlas!" VIEW-AS ALERT-BOX.

@@ -1,0 +1,6 @@
+project: DevAtlas
+message: Hello, DevAtlas!
+languages:
+  - JavaScript
+  - Python
+  - Rust

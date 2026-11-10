@@ -1,0 +1,2 @@
+$accent: #a993fa;
+.greeting { color: $accent; &:hover { text-decoration: underline; } }

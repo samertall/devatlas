@@ -5,6 +5,7 @@
   "type": "module",
   "description": "A developer-language discovery platform and learning-path generator",
   "scripts": {
+    "build:examples": "node scripts/build-examples.mjs",
     "test": "node --test tests/catalog.test.js"
   }
 }

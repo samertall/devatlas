@@ -1,0 +1,1 @@
+/catalog/language[@category='web']/name/text()

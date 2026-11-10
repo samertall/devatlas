@@ -16,6 +16,10 @@ Categorize frameworks, runtimes, and libraries as tools; do not suggest they're 
 
 Edit the `paths` array in `dist/data.js`. Every named skill must exist in the catalog. A path should end in a realistic, small project that can be completed and shared.
 
+## Add a source example
+
+Add `[technology name, extension, code]` to `examples/specs.mjs`, then run `npm run build:examples` and `npm test`. Use a small, idiomatic example with correct syntax for a documented language version. Include comments when hardware, a compiler, or external libraries are required. Never submit fake code solely to influence GitHub's language metrics.
+
 ## Pull requests
 
 Describe what you changed and why. For visible UI changes, include before/after screenshots. Test responsive and keyboard interaction where possible.

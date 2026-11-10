@@ -1,0 +1,3 @@
+query ExploreLanguages {
+  languages(category: "web") { name category }
+}

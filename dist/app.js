@@ -1,10 +1,12 @@
 import { groups, catalog, featured, paths, challenges, categoryName } from './data.js';
+import { exampleIndex } from './examples-index.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const escapeHTML = (s) => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const keyOf = name => name.toLowerCase();
 const byName = new Map(catalog.map(item => [keyOf(item.name),item]));
+const sourceExample = name => exampleIndex.samples[name];
 const storeKey = 'devatlas.saved.v1';
 let saved;
 try { saved = new Set(JSON.parse(localStorage.getItem(storeKey) || '[]').filter(x => typeof x === 'string')); }
@@ -99,7 +101,7 @@ function renderCatalog() {
         <button type="button" class="icon-button ${isSaved?'selected':''}" data-save="${escapeHTML(item.name)}" aria-label="${isSaved?'Unsave':'Save'} ${escapeHTML(item.name)}" title="${isSaved?'Remove from saved':'Save for later'}">${isSaved?'♥':'♡'}</button>
         <button type="button" class="icon-button ${isCompared?'selected':''}" data-compare="${escapeHTML(item.name)}" aria-label="${isCompared?'Remove':'Add'} ${escapeHTML(item.name)} ${isCompared?'from':'to'} comparison" title="Compare">${isCompared?'◈':'◇'}</button>
       </div></div>
-      <button class="tech-card-main" type="button" data-detail="${escapeHTML(item.name)}"><span class="tech-name" title="${escapeHTML(item.name)}">${escapeHTML(item.name)}</span><span class="tech-type">${item.kind === 'tool'?'Framework / tool / runtime':'Language / syntax'}</span></button>
+      <button class="tech-card-main" type="button" data-detail="${escapeHTML(item.name)}"><span class="tech-name" title="${escapeHTML(item.name)}">${escapeHTML(item.name)}</span><span class="tech-type">${item.kind === 'tool'?'Framework / tool / runtime':'Language / syntax'}${sourceExample(item.name)?' · Code example':''}</span></button>
       <div class="tech-card-footer">${tags.map(tag => `<span class="tech-tag">${escapeHTML(tag)}</span>`).join('')}</div></article>`;
   }).join('') : `<div class="empty-state"><h3>No matches in this orbit.</h3><p>Try a different term or reset your filters.</p><button type="button" class="button button-secondary" id="emptyReset">Reset filters</button></div>`;
   $('#loadMore').hidden = shown >= results.length;
@@ -116,17 +118,49 @@ function resetFilters() {
 
 function showDialog(id) { const dialog = $(`#${id}`);if (!dialog.open) dialog.showModal(); }
 
+function renderLanguageMap() {
+  const originalGroups = groups.slice(0,15);
+  $('#requestedCount').textContent = exampleIndex.totalRequested;
+  $('#sampleCount').textContent = exampleIndex.available;
+  $('#languageMapCount').textContent = `${exampleIndex.totalRequested} unique entries`;
+  $('#languageMapGrid').innerHTML = originalGroups.map((group,i) => {
+    const names = group.items.split('|');
+    return `<details class="map-group" ${i===0?'open':''}><summary><span class="map-group-icon" aria-hidden="true">${group.icon}</span><span class="map-group-title">${escapeHTML(group.name)} <small>${names.length} entries</small></span><span class="map-group-toggle" aria-hidden="true">⌄</span></summary><div class="map-items">${names.map(name => `<button type="button" class="map-item ${sourceExample(name)?'has-code':''}" data-detail="${escapeHTML(name)}"><span>${escapeHTML(name)}</span>${sourceExample(name)?'<span class="code-indicator" title="Source example available">&lt;/&gt;</span>':''}</button>`).join('')}</div></details>`;
+  }).join('');
+}
+
+async function loadExample(name) {
+  const sample = sourceExample(name);
+  if (!sample) return;
+  const target = $('#exampleSource');
+  if (!target || target.dataset.for !== name) return;
+  try {
+    const response = await fetch(`./${sample.path}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const code = await response.text();
+    const current = $('#exampleSource');
+    if (current && current.dataset.for === name) current.textContent = code;
+  } catch {
+    const current = $('#exampleSource');
+    if (current && current.dataset.for === name) current.textContent = 'This source example is temporarily unavailable.';
+  }
+}
+
 function renderDetail(name) {
   const item = byName.get(keyOf(name));if (!item) return;
   const meta = featured[item.name];
   const isSaved = saved.has(keyOf(name));
   const isCompared = compared.includes(keyOf(name));
+  const sample = sourceExample(name);
+  const visualOnly = exampleIndex.visualOnly.includes(name);
   const mainUse = meta?.use || categoriesOf(item).join(', ');
   $('#detailContent').innerHTML = `<div class="detail-title">${iconHTML(item)}<div><h2>${escapeHTML(item.name)}</h2><small>${item.kind === 'tool'?'Framework, runtime or developer tool':'Language, query, markup or syntax'}</small></div></div>
     <p class="detail-tagline">${escapeHTML(meta?.tagline || `Explore ${item.name} in the developer ecosystem.`)}</p>
     <div class="detail-grid"><div class="detail-box"><span>Common use</span><strong>${escapeHTML(mainUse)}</strong></div><div class="detail-box"><span>Learning profile</span><strong>${escapeHTML(meta?.difficulty || 'Depends on prior experience and use')}</strong></div></div>
     <div class="dialog-eyebrow">DISCOVERED IN</div><div class="detail-categories">${categoriesOf(item).map(cat => `<span class="tech-tag">${escapeHTML(cat)}</span>`).join('')}</div>
-    <div class="detail-actions"><button type="button" class="button button-primary" data-save="${escapeHTML(name)}">${isSaved?'Remove from saved':'♡ Save to shortlist'}</button><button type="button" class="button button-secondary" data-compare="${escapeHTML(name)}">${isCompared?'Remove from compare':'◇ Compare'}</button>${meta?.docs?`<a class="button button-secondary" href="${escapeHTML(meta.docs)}" target="_blank" rel="noopener noreferrer">Official docs ↗</a>`:''}</div>`;
+    <div class="detail-actions"><button type="button" class="button button-primary" data-save="${escapeHTML(name)}">${isSaved?'Remove from saved':'♡ Save to shortlist'}</button><button type="button" class="button button-secondary" data-compare="${escapeHTML(name)}">${isCompared?'Remove from compare':'◇ Compare'}</button>${meta?.docs?`<a class="button button-secondary" href="${escapeHTML(meta.docs)}" target="_blank" rel="noopener noreferrer">Official docs ↗</a>`:''}</div>
+    <div class="sample-block"><div class="sample-block-top"><div><span class="dialog-eyebrow">SOURCE EXAMPLE</span><h3>${sample?'Explore the syntax':visualOnly?'Visual programming environment':'Example not yet available'}</h3></div>${sample?`<button class="small-button" id="copyExample" type="button">Copy code</button>`:''}</div>${sample?`<pre class="sample-code"><code id="exampleSource" data-for="${escapeHTML(name)}">Loading example...</code></pre><p class="sample-caption">Educational example. Language versions and execution environments vary. <a href="https://github.com/samertall/devatlas/blob/main/${sample.path}" target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a></p>`:`<p class="sample-caption">${visualOnly?'Scratch and LabVIEW G use visual editors and native graphical project formats. There is no universal, genuine plain-text source file to display.':'This entry is part of the complete directory. A reviewed text-based sample has not been added yet.'}</p><a class="sample-contribute" href="https://github.com/samertall/devatlas/blob/main/LANGUAGE_COVERAGE.md" target="_blank" rel="noopener noreferrer">See full coverage on GitHub ↗</a>`}</div>`;
+  loadExample(name);
 }
 
 function renderCompare() {
@@ -190,6 +224,7 @@ document.addEventListener('click', e => {
   if (el.id === 'openCompare') {renderCompare();showDialog('compareDialog');return;}
   if (el.id === 'copySaved') return copyText([...saved].map(id => byName.get(id)?.name).filter(Boolean).join('\n'),'Shortlist copied!');
   if (el.id === 'copyRoadmap') return copyText(roadmapText(),'Roadmap copied!');
+  if (el.id === 'copyExample') return copyText($('#exampleSource')?.textContent||'','Source example copied!');
   if (el.id === 'closeRoadmap') {activePath=null;$('#roadmap').hidden=true;renderPaths();return;}
   if (el.id === 'newChallenge') {challengeIndex=(challengeIndex+1)%challenges.length;renderChallenge();return;}
   if (el.id === 'shareChallenge') return copyText(`Today's DevAtlas challenge:\n${challenges[challengeIndex]}\n\nBuild yours: https://devatlas-samer-2026.usefulotter1.chatgpt.site/#challenge\n#DevAtlas #BuildInPublic`,'Challenge copied. Invite a friend!');
@@ -211,4 +246,4 @@ if (groups.some(g => g.id === searchParams.get('category'))) activeCategory=sear
 $('#statTotal').textContent = `${catalog.length}+`;
 $('#statCategories').textContent = groups.length;
 $('#catalogTotal').textContent = `${catalog.length} technologies indexed`;
-persistSaved();renderPaths();renderCatalog();renderChallenge();
+persistSaved();renderPaths();renderCatalog();renderLanguageMap();renderChallenge();
